@@ -1,0 +1,118 @@
+diff --git a/README.md b/README.md
+index dedc117..468f2f2 100644
+--- a/README.md
++++ b/README.md
+@@ -15,3 +15,7 @@ python server.py     # opens on http://localhost:3000
+ - `profile.png` — replace with your photo (portrait, ~900x1100)
+ 
+ After editing a JSON file, also paste the same JSON into the `window.__remixContext = ...` line of the matching HTML (`index.html` / `work.html`, and `work/index.html`), or the page will render the old data first.
++
++## Static hosting
++
++`assets/static-loader-shim.js` is loaded first in `index.html`, `work.html` and `work/index.html`. It answers Remix's `?_data=routes/...` loader requests from `index_data.json` / `work_data.json`, so client-side navigation (e.g. `/work` -> `/#about`) works on static hosts that have no `server.py`. Keep it before the Remix entry script.
+diff --git a/assets/static-loader-shim.js b/assets/static-loader-shim.js
+new file mode 100644
+index 0000000..b4d39b7
+--- /dev/null
++++ b/assets/static-loader-shim.js
+@@ -0,0 +1,70 @@
++/*
++ * Static-hosting shim for the Remix loaders.
++ *
++ * The page bundles were exported from a Remix app whose routes have loaders.
++ * On client-side navigation (e.g. /work -> /#about) Remix fetches
++ *   /?_data=routes/_index   or   /work?_data=routes/work
++ * server.py answers those with JSON, but a static host (Vercel, Netlify,
++ * GitHub Pages, ...) just returns index.html, so the route receives a string
++ * instead of { home, navigationItems, socialLinks } and crashes with
++ * "Cannot read properties of undefined (reading 'hero')".
++ *
++ * This script answers those requests locally from index_data.json /
++ * work_data.json, so the site works on any host. It must load BEFORE the
++ * Remix entry script.
++ */
++(function () {
++  var sources = {
++    "routes/_index": "/index_data.json",
++    "routes/work": "/work_data.json"
++  };
++  var cache = {};
++  var realFetch = window.fetch.bind(window);
++
++  function loaderData(route) {
++    if (!cache[route]) {
++      cache[route] = realFetch(sources[route])
++        .then(function (r) {
++          if (!r.ok) throw new Error("HTTP " + r.status);
++          return r.json();
++        })
++        .then(function (json) {
++          return json.state.loaderData[route];
++        })
++        .catch(function (err) {
++          delete cache[route];
++          throw err;
++        });
++    }
++    return cache[route];
++  }
++
++  function json(body, status) {
++    return new Response(JSON.stringify(body), {
++      status: status || 200,
++      headers: { "Content-Type": "application/json; charset=utf-8" }
++    });
++  }
++
++  window.fetch = function (input, init) {
++    try {
++      var raw = typeof input === "string" ? input : input && input.url;
++      var url = new URL(raw, window.location.href);
++      if (url.origin === window.location.origin) {
++        var route = url.searchParams.get("_data");
++        if (route && sources[route]) {
++          return loaderData(route).then(function (data) {
++            return json(data);
++          });
++        }
++        // Page-view counter: there is no backend on a static host.
++        if (url.pathname.replace(/\/$/, "") === "/api/page-view") {
++          return Promise.resolve(json({ source: "organic", total: 0 }));
++        }
++      }
++    } catch (e) {
++      /* fall through to the real fetch */
++    }
++    return realFetch(input, init);
++  };
++})();
+diff --git a/index.html b/index.html
+index 2d9b1e0..11314cd 100644
+--- a/index.html
++++ b/index.html
+@@ -1,4 +1,4 @@
+-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Ishan Mondal</title><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Doto:wght@400..900&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=Lora:wght@500;600;700&amp;family=Tektur:wght@500;600;700;800&amp;display=swap"/><link rel="icon" type="image/png" href="/favicon.png?v=2"/><link rel="stylesheet" href="/assets/tailwind-BLJyI5Uo.css"/></head><body></body><script>((STORAGE_KEY, restoreKey) => {
++<!DOCTYPE html><html lang="en"><head><script src="/assets/static-loader-shim.js"></script><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Ishan Mondal</title><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Doto:wght@400..900&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=Lora:wght@500;600;700&amp;family=Tektur:wght@500;600;700;800&amp;display=swap"/><link rel="icon" type="image/png" href="/favicon.png?v=2"/><link rel="stylesheet" href="/assets/tailwind-BLJyI5Uo.css"/></head><body></body><script>((STORAGE_KEY, restoreKey) => {
+     if (!window.history.state || !window.history.state.key) {
+       let key = Math.random().toString(32).slice(2);
+       window.history.replaceState({
+diff --git a/work.html b/work.html
+index a494678..1a46fe4 100644
+--- a/work.html
++++ b/work.html
+@@ -1,4 +1,4 @@
+-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Ishan Mondal</title><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Doto:wght@400..900&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=Lora:wght@500;600;700&amp;family=Tektur:wght@500;600;700;800&amp;display=swap"/><link rel="icon" type="image/png" sizes="64x64" href="/favicon.png"/><link rel="shortcut icon" href="/favicon.ico"/><link rel="stylesheet" href="/assets/tailwind-BLJyI5Uo.css"/></head><body><script>((STORAGE_KEY, restoreKey) => {
++<!DOCTYPE html><html lang="en"><head><script src="/assets/static-loader-shim.js"></script><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Ishan Mondal</title><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Doto:wght@400..900&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=Lora:wght@500;600;700&amp;family=Tektur:wght@500;600;700;800&amp;display=swap"/><link rel="icon" type="image/png" sizes="64x64" href="/favicon.png"/><link rel="shortcut icon" href="/favicon.ico"/><link rel="stylesheet" href="/assets/tailwind-BLJyI5Uo.css"/></head><body><script>((STORAGE_KEY, restoreKey) => {
+     if (!window.history.state || !window.history.state.key) {
+       let key = Math.random().toString(32).slice(2);
+       window.history.replaceState({
+diff --git a/work/index.html b/work/index.html
+index a494678..1a46fe4 100644
+--- a/work/index.html
++++ b/work/index.html
+@@ -1,4 +1,4 @@
+-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Ishan Mondal</title><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Doto:wght@400..900&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=Lora:wght@500;600;700&amp;family=Tektur:wght@500;600;700;800&amp;display=swap"/><link rel="icon" type="image/png" sizes="64x64" href="/favicon.png"/><link rel="shortcut icon" href="/favicon.ico"/><link rel="stylesheet" href="/assets/tailwind-BLJyI5Uo.css"/></head><body><script>((STORAGE_KEY, restoreKey) => {
++<!DOCTYPE html><html lang="en"><head><script src="/assets/static-loader-shim.js"></script><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Ishan Mondal</title><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Doto:wght@400..900&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=Lora:wght@500;600;700&amp;family=Tektur:wght@500;600;700;800&amp;display=swap"/><link rel="icon" type="image/png" sizes="64x64" href="/favicon.png"/><link rel="shortcut icon" href="/favicon.ico"/><link rel="stylesheet" href="/assets/tailwind-BLJyI5Uo.css"/></head><body><script>((STORAGE_KEY, restoreKey) => {
+     if (!window.history.state || !window.history.state.key) {
+       let key = Math.random().toString(32).slice(2);
+       window.history.replaceState({
