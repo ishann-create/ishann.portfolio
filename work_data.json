@@ -1,0 +1,392 @@
+{
+  "basename": "/",
+  "future": {
+    "v3_fetcherPersist": false,
+    "v3_relativeSplatPath": false,
+    "v3_throwAbortReason": false,
+    "v3_routeConfig": false,
+    "v3_singleFetch": false,
+    "v3_lazyRouteDiscovery": false,
+    "unstable_optimizeDeps": false
+  },
+  "isSpaMode": false,
+  "state": {
+    "loaderData": {
+      "routes/work": {
+        "navigationItems": [
+          {
+            "key": "about",
+            "label": "abt me",
+            "href": "/#about",
+            "visible": true
+          },
+          {
+            "key": "projects",
+            "label": "work",
+            "href": "/work",
+            "visible": true
+          }
+        ],
+        "projects": {
+          "sectionTitle": "projects",
+          "items": [
+            {
+              "id": "aeonis",
+              "slug": "aeonis",
+              "title": "Aeonis",
+              "summary": "A certificate of the world the moment you arrived: the moon, weather, song and headlines from your birth date, reconstructed from real archives.",
+              "description": "A birthdate report powered by real public APIs.",
+              "tech": [
+                "React",
+                "Public APIs",
+                "Data"
+              ],
+              "githubUrl": null,
+              "liveUrl": "https://aeonis.lovable.app/",
+              "image": null,
+              "featured": true,
+              "published": true,
+              "sortOrder": 1,
+              "year": 2026,
+              "role": "Frontend / UI Design",
+              "status": "Live"
+            },
+            {
+              "id": "deal-sense",
+              "slug": "deal-sense",
+              "title": "Deal Sense",
+              "summary": "An Indian e-commerce deal aggregator pulling live prices across Amazon, Flipkart, Myntra and AJIO, so you stop overpaying.",
+              "description": "Deal aggregator across major Indian shopping sites.",
+              "tech": [
+                "React",
+                "Live APIs",
+                "E-commerce"
+              ],
+              "githubUrl": null,
+              "liveUrl": null,
+              "image": null,
+              "featured": false,
+              "published": true,
+              "sortOrder": 2,
+              "year": 2026,
+              "role": "Frontend / UI Design",
+              "status": "In progress"
+            },
+            {
+              "id": "brew-butter",
+              "slug": "brew-butter",
+              "title": "Brew&Butter",
+              "summary": "A WhatsApp automation demo for a Gurgaon café handling 150+ dine-in customers and 100+ delivery orders a day: orders confirmed automatically, routed to the kitchen, and updated back to the customer.",
+              "description": "Consulting project: diagnosed a manual order-confirmation bottleneck, then built a working WhatsApp demo.",
+              "tech": [
+                "WhatsApp",
+                "Automation",
+                "Consulting"
+              ],
+              "githubUrl": null,
+              "liveUrl": null,
+              "image": null,
+              "featured": false,
+              "published": true,
+              "sortOrder": 3,
+              "year": 2026,
+              "role": "Consultant / Builder",
+              "status": "Demo"
+            },
+            {
+              "id": "diet-soda",
+              "slug": "diet-soda",
+              "title": "Diet Soda",
+              "summary": "A D2C landing page concept for a zero-sugar soda brand, with bold berry and lime flavors built around a clean product showcase.",
+              "description": "D2C landing page concept.",
+              "tech": [
+                "React",
+                "D2C",
+                "Landing Page"
+              ],
+              "githubUrl": null,
+              "liveUrl": "https://sodacode.lovable.app/",
+              "image": null,
+              "featured": false,
+              "published": true,
+              "sortOrder": 4,
+              "year": 2026,
+              "role": "Frontend / UI Design",
+              "status": "Concept"
+            },
+            {
+              "id": "anime-verse",
+              "slug": "anime-verse",
+              "title": "Anime Verse",
+              "summary": "A cinematic anime discovery site with trending, seasonal and top-rated titles pulled live from the AniList API.",
+              "description": "Anime discovery site on the AniList API.",
+              "tech": [
+                "React",
+                "AniList API",
+                "UI Design"
+              ],
+              "githubUrl": null,
+              "liveUrl": "https://animeverse1.lovable.app/",
+              "image": null,
+              "featured": false,
+              "published": true,
+              "sortOrder": 5,
+              "year": 2026,
+              "role": "Frontend / UI Design",
+              "status": "Concept"
+            }
+          ]
+        },
+        "reachOut": {
+          "eyebrow": "open channels",
+          "title": "reach out",
+          "description": "Whether you're looking to collaborate, hire, seek advice, or simply start a conversation, choose the one that best matches your intent.",
+          "lanes": [
+            {
+              "id": "team",
+              "label": "01 / team channel",
+              "title": "Want me on your team?",
+              "description": "For frontend, UI/UX and data work on teams that want someone who ships clean interfaces and cares how they perform.",
+              "actions": [
+                {
+                  "label": "email me",
+                  "href": "https://mail.google.com/mail/?view=cm&fs=1&to=work.ishann%40gmail.com&su=Hiring%20Ishan"
+                }
+              ],
+              "segments": [
+                {
+                  "title": "Want me on your team?",
+                  "description": "For frontend, UI/UX and data work on teams that want someone who ships clean interfaces and cares how they perform.",
+                  "actions": [
+                    {
+                      "label": "email me",
+                      "href": "https://mail.google.com/mail/?view=cm&fs=1&to=work.ishann%40gmail.com&su=Hiring%20Ishan"
+                    }
+                  ]
+                },
+                {
+                  "title": "Ship the idea",
+                  "description": "Need something built, from a landing page to a full web app?",
+                  "actions": [
+                    {
+                      "label": "email me",
+                      "href": "https://mail.google.com/mail/?view=cm&fs=1&to=work.ishann%40gmail.com&su=Project%20idea"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "growth",
+              "label": "02 / automation channel",
+              "title": "Drowning in manual work?",
+              "description": "I consult with founders and small businesses on process design and WhatsApp automation. I look at how the day really runs first, then build the smallest system that fixes it.",
+              "actions": [
+                {
+                  "label": "talk automation",
+                  "href": "https://mail.google.com/mail/?view=cm&fs=1&to=work.ishann%40gmail.com&su=Automation%20chat"
+                }
+              ]
+            },
+            {
+              "id": "fun",
+              "label": "03 / fun channel",
+              "title": "Want to send a fun DM?",
+              "description": "For banter, strange product ideas, side quests, or anything that doesn't belong in an email.",
+              "actions": [
+                {
+                  "label": "dm on X",
+                  "href": "https://x.com/ishann_dz"
+                }
+              ]
+            }
+          ]
+        },
+        "socialLinks": [
+          {
+            "label": "X",
+            "url": "https://x.com/ishann_dz"
+          },
+          {
+            "label": "Instagram",
+            "url": "https://www.instagram.com/ishann_dz/"
+          },
+          {
+            "label": "Mail",
+            "url": "https://mail.google.com/mail/?view=cm&fs=1&to=work.ishann%40gmail.com"
+          },
+          {
+            "label": "LinkedIn",
+            "url": "https://www.linkedin.com/in/ishanndz/"
+          },
+          {
+            "label": "GitHub",
+            "url": "https://github.com/ishann-create"
+          }
+        ],
+        "techStack": {
+          "eyebrow": "stack overload",
+          "title": "tech stack",
+          "description": "Tools I use across product engineering, mobile apps, visual systems, and fast prototypes.",
+          "items": [
+            {
+              "id": "javascript",
+              "label": "Javascript",
+              "group": "language",
+              "accent": true,
+              "sortOrder": 1
+            },
+            {
+              "id": "typescript",
+              "label": "Typescript",
+              "group": "language",
+              "accent": true,
+              "sortOrder": 2
+            },
+            {
+              "id": "react",
+              "label": "ReactJs",
+              "group": "interface",
+              "accent": true,
+              "sortOrder": 3
+            },
+            {
+              "id": "react-native",
+              "label": "React Native",
+              "group": "mobile",
+              "accent": true,
+              "sortOrder": 4
+            },
+            {
+              "id": "expo",
+              "label": "Expo",
+              "group": "mobile",
+              "sortOrder": 5
+            },
+            {
+              "id": "nextjs",
+              "label": "NextJs",
+              "group": "interface",
+              "accent": true,
+              "sortOrder": 6
+            },
+            {
+              "id": "tailwind",
+              "label": "Tailwind",
+              "group": "interface",
+              "sortOrder": 7
+            },
+            {
+              "id": "python",
+              "label": "Python",
+              "group": "language",
+              "sortOrder": 8
+            },
+            {
+              "id": "graphql",
+              "label": "GraphQL",
+              "group": "data",
+              "sortOrder": 9
+            },
+            {
+              "id": "aws",
+              "label": "AWS",
+              "group": "platform",
+              "sortOrder": 10
+            },
+            {
+              "id": "figma",
+              "label": "Figma",
+              "group": "design",
+              "accent": true,
+              "sortOrder": 11
+            },
+            {
+              "id": "vite",
+              "label": "Vite",
+              "group": "tooling",
+              "sortOrder": 12
+            },
+            {
+              "id": "framer",
+              "label": "Framer",
+              "group": "motion",
+              "sortOrder": 13
+            },
+            {
+              "id": "spline",
+              "label": "Spline",
+              "group": "creative",
+              "sortOrder": 14
+            },
+            {
+              "id": "github",
+              "label": "Github",
+              "group": "platform",
+              "accent": true,
+              "sortOrder": 15
+            }
+          ]
+        },
+        "workExperience": {
+          "sectionTitle": "Experience",
+          "items": [
+            {
+              "id": "freelance",
+              "role": "Frontend Developer, UI/UX Designer & Data Analyst",
+              "company": "Freelance",
+              "periodLabel": "Present",
+              "startDate": "2026-01-01",
+              "endDate": null,
+              "summary": "Building React sites, interface designs and analytics dashboards for D2C brands.",
+              "highlights": [
+                "Ships React builds end to end, from landing pages to full web apps",
+                "Designs interfaces from wireframes to final polish",
+                "Builds dashboards that show brands what is working and what to cut"
+              ],
+              "location": "India",
+              "links": [],
+              "published": true,
+              "sortOrder": 1
+            },
+            {
+              "id": "brew-butter-consulting",
+              "role": "Automation Consultant",
+              "company": "Brew&Butter, Gurgaon",
+              "periodLabel": "Demo project",
+              "startDate": "2026-01-01",
+              "endDate": null,
+              "summary": "Diagnosed a manual order-confirmation bottleneck at a busy café and built a WhatsApp automation demo.",
+              "highlights": [
+                "Observed the full workflow before proposing anything",
+                "Traced the problem to manual confirmations, not headcount",
+                "Built a working demo: auto-confirmation, kitchen routing and customer delivery updates"
+              ],
+              "location": "India",
+              "links": [],
+              "published": true,
+              "sortOrder": 2
+            },
+            {
+              "id": "kiit",
+              "role": "B.Tech, Electronics & Computer Science",
+              "company": "KIIT",
+              "periodLabel": "In progress",
+              "startDate": "2026-01-01",
+              "endDate": null,
+              "summary": "Studying electronics and computer science alongside freelance work.",
+              "highlights": [],
+              "location": "India",
+              "links": [],
+              "published": true,
+              "sortOrder": 3
+            }
+          ]
+        }
+      },
+      "root": null
+    },
+    "actionData": null,
+    "errors": null
+  }
+}
